@@ -17,6 +17,7 @@ export default class ExpressServer {
         app.use(express.json());
         app.use(express.urlencoded({extended: false}));
         app.use(cookieParser());
+        app.use("/files", express.static("files"));
     }
 
     router(routes: (app: Application) => void): ExpressServer {

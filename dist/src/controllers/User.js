@@ -17,11 +17,8 @@ const auth_1 = __importDefault(require("../services/auth"));
 class UserController {
     static create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('a');
             const { email, password } = req.body;
-            console.log('b');
             const hashedPassword = yield auth_1.default.hash(password);
-            console.log('c');
             try {
                 let user = yield User_1.default.getByEmail(email);
                 if (user) {
@@ -31,9 +28,7 @@ class UserController {
                     email,
                     password: hashedPassword
                 };
-                console.log('d');
                 user = yield User_1.default.create(userFields);
-                console.log('e');
                 return res
                     .status(201)
                     .json({ message: 'User created successfully' });

@@ -6,11 +6,8 @@ import { verify } from 'crypto';
 
 class UserController {
     static async create (req:Request, res: Response, next: NextFunction): Promise<Response> {
-        console.log('a')
         const {email, password} = req.body;
-        console.log('b')
         const hashedPassword = await AuthService.hash(password);
-        console.log('c')
         try {
             let user: IUser = await User.getByEmail(email);
 
@@ -22,9 +19,7 @@ class UserController {
             email,
             password: hashedPassword
         }
-        console.log('d')
         user = await User.create(userFields);
-        console.log('e')
         return res
             .status(201)
             .json({message: 'User created successfully'});

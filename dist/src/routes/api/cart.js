@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const User_1 = __importDefault(require("../../controllers/User"));
-const User_2 = __importDefault(require("../../validations/User"));
+const Cart_1 = __importDefault(require("../../controllers/Cart"));
+//import ProductValidation from '../../validations/Product';
 const router = express_1.Router();
-router.get('/', User_1.default.getAll);
-router.post('/', [User_2.default.create()], User_1.default.create);
+router.route('/')
+    .get(Cart_1.default.get)
+    .delete(Cart_1.default.emptyCart);
+router.post('/:id', Cart_1.default.create);
 exports.default = router;
-//# sourceMappingURL=user.js.map
+//# sourceMappingURL=cart.js.map

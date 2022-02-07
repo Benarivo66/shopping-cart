@@ -6,6 +6,6 @@ import UserValidation from '../../validations/User';
 const router: Router = Router();
 
 router.get('/', UserController.getAll);
-router.post('/', UserController.create);
+router.post('/', [UserValidation.create()], UserController.create);
 
 export default router;
