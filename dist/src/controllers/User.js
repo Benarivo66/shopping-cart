@@ -12,8 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../services/User"));
 const auth_1 = __importDefault(require("../services/auth"));
+const env_1 = require("../../config/env");
 class UserController {
     static create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,9 +31,13 @@ class UserController {
                     password: hashedPassword
                 };
                 user = yield User_1.default.create(userFields);
+                const token = jsonwebtoken_1.default.sign({ email, id: user._id }, env_1.tokenKey, {
+                    expiresIn: '1h'
+                });
+                user.token = token;
                 return res
                     .status(201)
-                    .json({ message: 'User created successfully' });
+                    .json({ message: 'User created successfully', data: user });
             }
             catch (error) {
                 next(error);
@@ -54,6 +60,10 @@ class UserController {
                         .status(403)
                         .json({ message: 'enter a valid password' });
                 }
+                const token = jsonwebtoken_1.default.sign({ email, id: user._id }, env_1.tokenKey, {
+                    expiresIn: '1h'
+                });
+                user.token = token;
                 return res
                     .status(200)
                     .json({ status: "Login successful", data: user });
@@ -66,9 +76,13 @@ class UserController {
     static getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const users = yield User_1.default.getAll();
+            if (!users.length)
+                return res
+                    .status(404)
+                    .json({ message: 'no product found' });
             return res
                 .status(200)
-                .json({ message: "Fetch successful", data: users });
+                .json({ message: 'Fetch successful', data: users });
         });
     }
 }

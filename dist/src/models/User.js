@@ -18,6 +18,9 @@ const userSchema = new mongoose_1.Schema({
     deleted: {
         type: Boolean,
         default: false,
+    },
+    token: {
+        type: String
     }
 }, { timestamps: true });
 const User = mongoose_1.model('User', userSchema);

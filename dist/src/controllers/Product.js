@@ -18,7 +18,12 @@ class ProductController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name, description, category, quantity, price } = req.body;
-                const image = req.file.path;
+                let image;
+                if (req.file)
+                    image = req.file.path;
+                else {
+                    image = '#';
+                }
                 const productFields = {
                     name, description, category, quantity, price, image, deleted: false
                 };
@@ -31,7 +36,7 @@ class ProductController {
                     return res.status(400).json({ errors });
                 const product = yield product_1.default.create(productFields);
                 return res
-                    .status(200)
+                    .status(201)
                     .json({ message: 'product created successfully', data: product });
             }
             catch (error) {

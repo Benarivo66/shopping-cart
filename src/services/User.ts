@@ -7,9 +7,7 @@ class UserService {
         return user;
     }
     async create(newUserData: newUserType) {
-        console.log('f')
         const user = new User(newUserData);
-        console.log({user});
         return user.save();
     }
     async getAll(): Promise<IUser[]> {

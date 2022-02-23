@@ -5,7 +5,11 @@ class ProductController{
     static async create(req: Request, res:Response, next: NextFunction): Promise<Response> {
         try {
             const {name, description, category, quantity, price} = req.body;
-            const image = req.file.path;
+            let image;
+            if(req.file) image = req.file.path;
+            else{
+                image = '#';
+            }
             const productFields = {
                 name, description, category, quantity, price, image, deleted: false
             };
@@ -19,7 +23,7 @@ class ProductController{
             const product = await ProductService.create(productFields);
 
             return res
-                .status(200)
+                .status(201)
                 .json({message: 'product created successfully', data: product});
         } catch (error) {
             next(error);
@@ -127,9 +131,6 @@ class ProductController{
             next(error);
         }
     }
-
-
-
 
 }
 

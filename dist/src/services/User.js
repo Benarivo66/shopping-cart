@@ -22,9 +22,7 @@ class UserService {
     }
     create(newUserData) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('f');
             const user = new User_1.default(newUserData);
-            console.log({ user });
             return user.save();
         });
     }

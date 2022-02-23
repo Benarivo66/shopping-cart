@@ -19,6 +19,9 @@ const userSchema: Schema = new Schema(
         deleted: {
             type: Boolean,
             default: false,
+        },
+        token: {
+            type: String
         }
     },
     {timestamps: true}

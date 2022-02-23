@@ -2,6 +2,7 @@ import { Router } from 'express';
 import ProductController from '../../controllers/Product';
 import { upload } from '../../../config/multer';
 import ProductValidation from '../../validations/Product';
+import auth from '../../middleware/auth';
 
 const router: Router = Router();
 

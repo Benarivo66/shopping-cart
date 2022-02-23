@@ -19,20 +19,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mongo = exports.port = void 0;
+exports.mongo = exports.tokenKey = exports.port = void 0;
 const celebrate_1 = require("celebrate");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const envVarsSchema = celebrate_1.Joi.object({
     PORT: celebrate_1.Joi.number().default(4000),
-    MONGODB_URL: celebrate_1.Joi.string(),
+    MONGO_URI: celebrate_1.Joi.string(),
+    TOKEN_KEY: celebrate_1.Joi.string()
+        .required()
+        .description('JWT KEY required to sign in')
 }).unknown().required();
 const { error, value: envVars } = envVarsSchema.validate(process.env);
 if (error) {
     throw new Error(`Config validation error: ${error.message}`);
 }
 exports.port = envVars.PORT;
+exports.tokenKey = envVars.TOKEN_KEY;
 exports.mongo = {
-    host: envVars.MONGODB_URL
+    host: envVars.MONGO_URI
 };
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,10 @@
 import {NextFunction, Request, Response} from 'express';
+import jwt from 'jsonwebtoken';
 import { IUser } from 'User';
 import User  from '../services/User';
 import AuthService from "../services/auth";
-import { verify } from 'crypto';
+import { tokenKey } from '../../config/env'
+
 
 class UserController {
     static async create (req:Request, res: Response, next: NextFunction): Promise<Response> {
@@ -20,9 +22,15 @@ class UserController {
             password: hashedPassword
         }
         user = await User.create(userFields);
+        const token = jwt.sign({ email, id: user._id }, tokenKey, {
+            expiresIn: '1h'
+        });
+
+        user.token = token;
+
         return res
             .status(201)
-            .json({message: 'User created successfully'});
+            .json({message: 'User created successfully', data: user});
         } catch (error) {
             next(error);
         }
@@ -44,6 +52,13 @@ class UserController {
                     .status(403)
                     .json({message:'enter a valid password'});
             }
+
+            const token = jwt.sign({ email, id: user._id }, tokenKey, {
+                expiresIn: '1h'
+            });
+    
+            user.token = token;
+
             return res
                 .status(200)
                 .json({status: "Login successful", data:user})
@@ -54,9 +69,13 @@ class UserController {
 
     static async getAll (req:Request, res: Response) {
         const users = await User.getAll();
+        
+        if(!users.length) return res
+                            .status(404)
+                            .json({message: 'no product found' })
         return res
             .status(200)
-            .json({message: "Fetch successful", data: users});
+            .json({message: 'Fetch successful', data: users});
     }
 }
 

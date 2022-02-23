@@ -6,7 +6,10 @@ dotenv.config();
 
 const envVarsSchema = Joi.object({
     PORT: Joi.number().default(4000),
-    MONGODB_URL: Joi.string(),
+    MONGO_URI: Joi.string(),
+    TOKEN_KEY: Joi.string()
+    .required()
+    .description('JWT KEY required to sign in')
 }).unknown().required();
 
 const {error, value: envVars} = envVarsSchema.validate(process.env);
@@ -15,7 +18,8 @@ if(error) {
 }
 
 export const port = envVars.PORT;
+export const tokenKey = envVars.TOKEN_KEY;
 export const mongo = {
-    host: envVars.MONGODB_URL
+    host: envVars.MONGO_URI
 }
 

@@ -5,7 +5,7 @@ export default class ProductValidation {
         const create = {
             [Segments.BODY]: Joi.object().keys({
                 name: Joi.string().required(),
-                image: Joi.binary().required(),
+                image: Joi.binary(),
                 description: Joi.string().required(),
                 category: Joi.string().required(),
                 quantity: Joi.number().required(),

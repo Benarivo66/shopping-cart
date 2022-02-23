@@ -1,6 +1,5 @@
 import express, {Application} from 'express';
 import cors from 'cors';
-import path from 'path';
 import http from 'http';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
