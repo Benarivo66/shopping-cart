@@ -40,7 +40,7 @@ class PaymentController {
                     cancel_url: `${YOUR_DOMAIN}/success.html`,
                     success_url: `${YOUR_DOMAIN}/cancel.html`,
                 });
-                return res.json({ url: session.url });
+                return res.status(200).json({ url: session.url });
             }
             catch (error) {
                 next(error);

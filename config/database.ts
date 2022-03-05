@@ -1,33 +1,9 @@
-// import mongoose from 'mongoose';
-
-// const MONGO_URI = process.env.MONGO_URI
-
-// export interface IDatabase {
-//     init(): void;
-// }
-
-// export default class Database implements IDatabase {
-//     connectionString: string;
-
-//     constructor(connectionString: string) {
-//         this.connectionString = connectionString;
-//     }
-
-//     init(): void {
-//         try {
-//             mongoose.connect(MONGO_URI);
-//         } catch (error) {
-//             throw Error(error)
-//         }
-//     }
-// }
-
-
 import mongoose from 'mongoose';
 const { MongoMemoryServer } = require('mongodb-memory-server');
-let node_env = process.env.NODE_ENV;
 
+const title = process.title;
 const MONGO_URI = process.env.MONGO_URI
+
 
 export interface IDatabase {
     init(): Promise<void>,
@@ -44,7 +20,7 @@ export default class Database implements IDatabase {
 
     async init(): Promise<void> {
         try {
-            if(node_env === 'test'){
+            if(title === 'node'){
                 const mongod = await MongoMemoryServer.create();
                 const uri = await mongod.getUri();
 
@@ -55,18 +31,22 @@ export default class Database implements IDatabase {
                     reconnectInterval: 1000
                 };
                 await mongoose.connect(uri, mongooseOpts);
-            }
-            mongoose.connect(MONGO_URI);
+            }else {
+                mongoose.connect(MONGO_URI);
+            } 
         } catch (error) {
             throw Error(error);
         }
     }
     async closeDatabase(): Promise<void> {
         try {
-            const mongod = await MongoMemoryServer.create();
-            await mongoose.connection.dropDatabase();
-            await mongoose.connection.close();
-            await mongod.stop();
+            if(title === 'node'){
+                const mongod = await MongoMemoryServer.create();
+                await mongoose.connection.dropDatabase();
+                await mongoose.connection.close();
+                await mongod.stop();
+            }
+            
         } catch (error) {
             throw Error(error);
         }

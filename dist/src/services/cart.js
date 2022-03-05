@@ -37,8 +37,4 @@ class CartService {
     }
 }
 exports.default = new CartService();
-// exports.addItem = async payload => {
-//     const newItem = await Cart.create(payload);
-//     return newItem
-// }
 //# sourceMappingURL=cart.js.map

@@ -2,11 +2,12 @@ import {Request, Response, NextFunction} from 'express';
 import CartService from '../services/cart';
 import ProductService from '../services/product';
 import CartHelpers from '../helpers/cart';
+import {RequestTest} from 'Request';
 
 class CartController{
-    static async create(req: Request, res:Response, next: NextFunction): Promise<Response> {
+    static async create(req: RequestTest, res:Response, next: NextFunction): Promise<Response> {
         const { id } = req.params;
-        const quantity = parseInt(req.body.quantity);
+        const quantity = parseInt(req.body.quantity || req._body.data.quantity);
         try {
             let cart = await CartService.cart();
             let productDetails = await ProductService.getById({_id: id});

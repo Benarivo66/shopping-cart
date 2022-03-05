@@ -1,4 +1,3 @@
-
 import {Joi} from 'celebrate';
 
 import * as dotenv from 'dotenv';

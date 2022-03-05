@@ -7,7 +7,7 @@ import auth from '../../middleware/auth';
 const router: Router = Router();
 
 router.route('/')
-.post([ProductValidation.create()], ProductController.create)
+.post(ProductController.create)
 .get(ProductController.getAll)
 .delete(ProductController.deleteMany);
 

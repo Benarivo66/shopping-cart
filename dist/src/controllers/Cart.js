@@ -19,7 +19,7 @@ class CartController {
     static create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const quantity = parseInt(req.body.quantity);
+            const quantity = parseInt(req.body.quantity || req._body.data.quantity);
             try {
                 let cart = yield cart_1.default.cart();
                 let productDetails = yield product_1.default.getById({ _id: id });

@@ -8,9 +8,10 @@ const testDB = new db(process.env.MONGO_URI);
 const app = require('../dist/src/server').default;
 
 process.env.NODE_ENV = 'test';
+
 let id;
 
-describe('Product operations', () => {
+describe('Cart operations', () => {
     before(async() => {
         await testDB.init();
     });
@@ -20,8 +21,8 @@ describe('Product operations', () => {
 
     describe('POST /product', () => {
         it('should create product', (done) => {
-            const fields = { name: 'shoe', description: 'designers', category: 'footwear',
-            quantity: 3, price: 18500 };
+            const fields = { name: 'mascolino', description: 'designers', category: 'perfumes',
+            quantity: 3, price: 1850 };
             request(app)
             .post('/product')
             .send(fields)
@@ -35,50 +36,41 @@ describe('Product operations', () => {
             })
         })
     })
-    describe('GET /product', () => {
-        it('should get product', (done) => {
+    describe('POST /cart', () => {
+        it('should create cart', (done) => {
+            const fields = {quantity: 1}
             request(app)
-            .get('/product')
-            .set('Accept', 'application/json')
-            .expect('content-Type', /json/)
-            .expect(200, done)
-        })
-    })
-    describe(`GET /product/${id}`, () => {
-        it('should get a single product', (done) => {
-            request(app)
-            .get(`/product/${id}`)
-            .set('Accept', 'application/json')
-            .expect('content-Type', /json/)
-            .expect(200, done)
-        })
-        
-    })
-    describe(`PUT /product/${id}`, () => {
-        it('should update product', (done) => {
-            const fields = {category: 'body spray'}
-            request(app)
-            .put(`/product/${id}`)
-            .set('Accept', 'application/json')
+            .post(`/cart/${id}`)
             .send(fields)
+            .set('Accept', 'application/json')
             .expect('content-Type', /json/)
             .end((err, res) => {
+                expect(res.status).to.be.equal(200)
                 if(err) return done(err);
-                expect(res._body.data.category).to.be.equal('body spray');
-                expect(res.status).to.be.equal(200);
-                return done();
+                return done()
             })
+            
+            
         })
     })
-    describe(`DELETE /product/${id}`, () => {
-        it('should delete a product', (done) => {
+    describe(`GET /cart`, () => {
+        it('should get cart', (done) => {
             request(app)
-            .delete(`/product/${id}`)
+            .get('/cart')
+            .set('Accept', 'application/json')
+            .expect('content-Type', /json/)
+            .expect(200, done)
+        })
+    })
+    describe('DELETE /cart}', () => {
+        it('should delete a cart', (done) => {
+            request(app)
+            .delete('/cart')
             .set('Accept', 'application/json')
             .expect('content-Type', /json/)
             .end((err, res) => {
                 if(err) return done(err);
-                expect(res._body.data.deleted).to.be.equal(true);
+                expect(res.body.status).to.be.equal('Success');
                 expect(res.status).to.be.equal(200);
                 return done();
             })

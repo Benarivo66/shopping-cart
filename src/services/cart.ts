@@ -1,5 +1,4 @@
 import { ICart, cartItemData } from 'Cart';
-import {IProduct} from 'Product';
 import Cart from '../models/Cart';
 
 class CartService {
@@ -22,8 +21,3 @@ class CartService {
 }
 
 export default new CartService();
-
-// exports.addItem = async payload => {
-//     const newItem = await Cart.create(payload);
-//     return newItem
-// }
