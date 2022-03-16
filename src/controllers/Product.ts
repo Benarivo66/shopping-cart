@@ -24,7 +24,7 @@ class ProductController{
 
             return res
                 .status(201)
-                .json({message: 'product created successfully', data: product});
+                .json({message: 'Product created successfully', data: product});
         } catch (error) {
             next(error);
         }
@@ -53,6 +53,7 @@ class ProductController{
     static async getById(req: Request, res:Response, next: NextFunction): Promise<Response> {
         try {
             const { id } = req.params;
+            console.log({id});
 
             const product = await ProductService.getById({_id: id});
             if(!product) return res
@@ -77,7 +78,7 @@ class ProductController{
             let product = await ProductService.getById({_id: id});
 
             if(!product) return res
-                             .status(400)
+                             .status(404)
                              .json({message: 'product not found'});
 
             product.name = name || product.name;

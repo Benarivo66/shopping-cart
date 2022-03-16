@@ -4,6 +4,6 @@ import auth from '../../middleware/auth';
 
 const router: Router = Router();
 
-router.post('/', PaymentController.sendSessionId);
+router.post('/', auth, PaymentController.sendSessionId);
 
 export default router;

@@ -72,10 +72,10 @@ class UserController {
         
         if(!users.length) return res
                             .status(404)
-                            .json({message: 'no product found' })
+                            .json({message: 'no user found' })
         return res
             .status(200)
-            .json({message: 'Fetch successful', data: users});
+            .json({message: 'Success', data: users});
     }
 }
 

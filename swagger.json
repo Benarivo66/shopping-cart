@@ -1,0 +1,416 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Shopping Cart Server",
+    "version": "1.0.0",
+    "contact": {
+      "email": "iz4comed@yahoo.com",
+      "Phone": "+2347038888582"
+    },
+    "host": "localhost:4000",
+    "basePath": "/",
+    "schemes": ["http"]
+      
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "creates a new user",
+        "consumes": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "user",
+          "description": "the user to create",
+          "schema": {
+            "type": "object",
+            "description": "user schema",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "the user email address",
+                "example": "test@example.com"
+              },
+              "password": {
+                "type": "string",
+                "description": "the user password",
+                "example": "password"
+              }
+            }
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "summary": "get all users",
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "header",
+          "description": "an authorization header",
+          "name": "x-access-token",
+          "required": "true",
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "no user found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "summary": "Logs a user in",
+        "consumes": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "user auth",
+          "description": "the user to log in",
+          "schema": {
+            "type": "object",
+            "description": "user schema",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "the user email address",
+                "example": "test@example.com"
+              },
+              "password": {
+                "type": "string",
+                "description": "the user password",
+                "example": "password"
+              }
+            }
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Invalid Credentials"
+          },
+          "403": {
+            "description": "enter a valid password"
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "summary": "creates a new product",
+        "consumes": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "product",
+          "description": "the product to create",
+          "schema": {
+            "type": "object",
+            "description": "product schema",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "the product name",
+                "example": "Giogior Amani"
+              },
+              "description": {
+                "type": "string",
+                "description": "information on the product",
+                "example": "Designer perfume"
+              },
+              "category": {
+                "type": "string",
+                "description": "class of product",
+                "example": "Perfumes"
+              },
+              "quantity": {
+                "type": "integer",
+                "description": "number of products",
+                "example": "3"
+              },
+              "price": {
+                "type": "integer",
+                "description": "cost of product",
+                "example": "2000"
+              }
+          }
+        }
+          },
+          {"in": "header",
+            "description": "an authorization header",
+            "name": "x-access-token",
+            "required": "true",
+            "type": "string"
+          }],
+        "responses": {
+          "201": {
+            "description": "Product created successfully"
+          },
+          "400": {
+            "description": "Please fill all fields"
+          }
+        }
+      },
+      "get": {
+        "summary": "get all products",
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "header",
+          "description": "an authorization header",
+          "name": "x-access-token",
+          "required": "true",
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "no product found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "summary": "Gets a product by id",
+        "parameters":[{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "ID of the product to get"
+        }, {
+          "in": "header",
+            "description": "an authorization header",
+            "name": "x-access-token",
+            "required": "true",
+            "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a product",
+        "parameters":[{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "ID of the product to update"
+        }, {
+          "in": "body",
+          "name": "product",
+          "description": "the product to update",
+          "schema": {
+            "type": "object",
+            "description": "product schema",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "the product name",
+                "example": "Giogior Amani"
+              },
+              "description": {
+                "type": "string",
+                "description": "information on the product",
+                "example": "Designer perfume"
+              },
+              "category": {
+                "type": "string",
+                "description": "class of product",
+                "example": "Perfumes"
+              },
+              "quantity": {
+                "type": "integer",
+                "description": "number of products",
+                "example": "3"
+              },
+              "price": {
+                "type": "integer",
+                "description": "cost of product",
+                "example": "2000"
+              }
+          }
+        }
+        },
+        {
+          "in": "header",
+            "description": "an authorization header",
+            "name": "x-access-token",
+            "required": "true",
+            "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a product",
+        "parameters":[{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "ID of the product to delete"
+        }, {
+          "in": "header",
+          "description": "an authorization header",
+          "name": "x-access-token",
+          "required": "true",
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      }
+    },
+    "/payment": {
+      "post": {
+        "summary": "creates a new product",
+        "consumes": ["application/json"],
+        "parameters":[{
+          "in": "header",
+          "description": "an authorization header",
+          "name": "x-access-token",
+          "required": "true",
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/cart": {
+      "delete": {
+        "summary": "Deletes a cart",
+        "parameters":[{
+          "in": "header",
+          "description": "an authorization header",
+          "name": "x-access-token",
+          "required": "true",
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      },
+      "get": {
+        "summary": "Gets a cart",
+        "parameters":[{
+          "in": "header",
+            "description": "an authorization header",
+            "name": "x-access-token",
+            "required": "true",
+            "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      }
+    },
+    "/cart/{id}": {
+      "post": {
+        "summary": "creates a new product",
+        "consumes": ["application/json"],
+        "parameters": [{
+          "in": "header",
+          "description": "an authorization header",
+          "name": "x-access-token",
+          "required": "true",
+          "type": "string"
+        }, {
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "ID of the product to delete"
+        }, {
+          "in": "body",
+          "name": "product",
+          "description": "the product to update",
+          "schema": {
+            "type": "object",
+            "description": "product schema",
+            "properties": {
+              "quantity": {
+                "type": "number",
+                "description": "the product cost",
+                "example": "5"
+              }
+          }
+        }
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "403": {
+            "description": "A token is required for authentication"
+          }
+        }
+      }
+    }
+  }
+
+}
+
+  

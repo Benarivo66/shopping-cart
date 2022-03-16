@@ -7,13 +7,13 @@ import auth from '../../middleware/auth';
 const router: Router = Router();
 
 router.route('/')
-.post(ProductController.create)
-.get(ProductController.getAll)
-.delete(ProductController.deleteMany);
+.post([ProductValidation.create(), auth], upload.single('files'), ProductController.create)
+.get(auth, ProductController.getAll)
+.delete(auth, ProductController.deleteMany);
 
 router.route('/:id')
-.get(ProductController.getById)
-.put(ProductController.update)
-.delete(ProductController.deleteOne);
+.get(auth, ProductController.getById)
+.put(auth, ProductController.update)
+.delete(auth, ProductController.deleteOne);
 
 export default router;

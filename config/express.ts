@@ -1,11 +1,15 @@
-import express, {Application} from 'express';
+import express, {Application, Router} from 'express';
 import cors from 'cors';
 import http from 'http';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import swaggerUi from 'swagger-ui-express';
 import { IDatabase } from './database';
 import {port} from './env';
 import installRoutes from './routes';
+
+import swaggerDocument from '../swagger.json';
+const router = Router();
 
 const app = express();
 
@@ -17,6 +21,9 @@ export default class ExpressServer {
         app.use(express.urlencoded({extended: false}));
         app.use(cookieParser());
         app.use("/files", express.static("files"));
+        // router.use('/api-docs', swaggerUi.serve);
+        // router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+        app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }
 
     router(routes: (app: Application) => void): ExpressServer {
