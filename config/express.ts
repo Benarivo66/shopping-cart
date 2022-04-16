@@ -9,7 +9,6 @@ import {port} from './env';
 import installRoutes from './routes';
 
 import swaggerDocument from '../swagger.json';
-const router = Router();
 
 const app = express();
 
@@ -21,8 +20,6 @@ export default class ExpressServer {
         app.use(express.urlencoded({extended: false}));
         app.use(cookieParser());
         app.use("/files", express.static("files"));
-        // router.use('/api-docs', swaggerUi.serve);
-        // router.get('/api-docs', swaggerUi.setup(swaggerDocument));
         app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }
 

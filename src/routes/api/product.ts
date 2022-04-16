@@ -7,7 +7,7 @@ import auth from '../../middleware/auth';
 const router: Router = Router();
 
 router.route('/')
-.post([ProductValidation.create(), auth], upload.single('files'), ProductController.create)
+.post(auth, upload.single('image'), ProductController.create)
 .get(auth, ProductController.getAll)
 .delete(auth, ProductController.deleteMany);
 

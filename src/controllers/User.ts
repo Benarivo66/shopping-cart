@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { IUser } from 'User';
 import User  from '../services/User';
 import AuthService from "../services/auth";
-import { tokenKey } from '../../config/env'
+import { tokenKey } from '../../config/env';
 
 
 class UserController {
