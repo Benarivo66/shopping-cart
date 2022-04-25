@@ -72,7 +72,7 @@ class UserController {
         
         if(!users.length) return res
                             .status(404)
-                            .json({message: 'no user found' })
+                            .json({ message: 'no user found' })
         return res
             .status(200)
             .json({message: 'Success', data: users});
