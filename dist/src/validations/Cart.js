@@ -8,7 +8,7 @@ class CartValidation {
                 quantity: celebrate_1.Joi.number().required(),
             }),
         };
-        return celebrate_1.celebrate(create, { abortEarly: false });
+        return (0, celebrate_1.celebrate)(create, { abortEarly: false });
     }
 }
 exports.default = CartValidation;

@@ -12,19 +12,19 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const env_1 = require("./env");
 const routes_1 = __importDefault(require("./routes"));
 const swagger_json_1 = __importDefault(require("../swagger.json"));
-const app = express_1.default();
+const app = (0, express_1.default)();
 class ExpressServer {
     constructor() {
-        app.use(cors_1.default());
-        app.use(morgan_1.default('dev'));
+        app.use((0, cors_1.default)());
+        app.use((0, morgan_1.default)('dev'));
         app.use(express_1.default.json());
         app.use(express_1.default.urlencoded({ extended: false }));
-        app.use(cookie_parser_1.default());
+        app.use((0, cookie_parser_1.default)());
         app.use("/files", express_1.default.static("files"));
         app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
     }
     router(routes) {
-        routes_1.default(app, routes);
+        (0, routes_1.default)(app, routes);
         return this;
     }
     database(db) {

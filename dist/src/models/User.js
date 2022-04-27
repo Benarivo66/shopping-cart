@@ -23,6 +23,6 @@ const userSchema = new mongoose_1.Schema({
         type: String
     }
 }, { timestamps: true });
-const User = mongoose_1.model('User', userSchema);
+const User = (0, mongoose_1.model)('User', userSchema);
 exports.default = User;
 //# sourceMappingURL=User.js.map

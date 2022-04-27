@@ -7,7 +7,7 @@ const express_1 = require("express");
 const Product_1 = __importDefault(require("../../controllers/Product"));
 const multer_1 = require("../../../config/multer");
 const auth_1 = __importDefault(require("../../middleware/auth"));
-const router = express_1.Router();
+const router = (0, express_1.Router)();
 router.route('/')
     .post(auth_1.default, multer_1.upload.single('image'), Product_1.default.create)
     .get(auth_1.default, Product_1.default.getAll)

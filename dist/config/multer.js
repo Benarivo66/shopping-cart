@@ -22,7 +22,7 @@ const fileFilter = (_req, file, cb) => {
         cb(new Error('Not an image! Please upload an image.'), false);
     }
 };
-const upload = multer_1.default({
+const upload = (0, multer_1.default)({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 6

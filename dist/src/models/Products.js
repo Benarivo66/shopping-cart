@@ -31,6 +31,6 @@ const productSchema = new mongoose_1.Schema({
         default: false
     }
 }, { timestamps: true });
-const Product = mongoose_1.model('Product', productSchema);
+const Product = (0, mongoose_1.model)('Product', productSchema);
 exports.default = Product;
 //# sourceMappingURL=Products.js.map

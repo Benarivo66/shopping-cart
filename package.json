@@ -61,5 +61,8 @@
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "^14.15.1"
   }
 }

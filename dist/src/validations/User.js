@@ -9,7 +9,7 @@ class UserValidation {
                 password: celebrate_1.Joi.string().min(6).required(),
             }),
         };
-        return celebrate_1.celebrate(create, { abortEarly: false });
+        return (0, celebrate_1.celebrate)(create, { abortEarly: false });
     }
     static login() {
         const login = {
@@ -18,7 +18,7 @@ class UserValidation {
                 password: celebrate_1.Joi.string().min(6).required(),
             }),
         };
-        return celebrate_1.celebrate(login, { abortEarly: false });
+        return (0, celebrate_1.celebrate)(login, { abortEarly: false });
     }
 }
 exports.default = UserValidation;

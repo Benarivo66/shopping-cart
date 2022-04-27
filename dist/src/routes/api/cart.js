@@ -7,7 +7,7 @@ const express_1 = require("express");
 const Cart_1 = __importDefault(require("../../controllers/Cart"));
 const auth_1 = __importDefault(require("../../middleware/auth"));
 const Cart_2 = __importDefault(require("../../validations/Cart"));
-const router = express_1.Router();
+const router = (0, express_1.Router)();
 router.route('/')
     .get(auth_1.default, Cart_1.default.get)
     .delete(auth_1.default, Cart_1.default.emptyCart);
