@@ -4,11 +4,12 @@
   "description": "A mini e-commerce app",
   "main": "server.js",
   "scripts": {
+    "start": "node dist/src/server.js",
+    "build": "tsc",
+    "server": "concurrently \"npm run watch-tsc\" \"npm run watch-start\"",
     "test": "mocha --recursive --exit",
     "watch-start": "nodemon dist/src/server.js",
-    "watch-tsc": "tsc -w",
-    "start": "node dist/src/server.js",
-    "server": "concurrently \"npm run watch-tsc\" \"npm run watch-start\""
+    "watch-tsc": "tsc -w"
   },
   "repository": {
     "type": "git",
