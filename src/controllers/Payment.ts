@@ -12,6 +12,9 @@ class PaymentController {
     static async sendSessionId(req:Request, res:Response, next: NextFunction){
         try {
             const cart = await CartServices.cart();
+            if(!cart || !cart.items || !cart.items.length){
+                res.status(200).send('You have not selected any product to pay for');
+            }
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 line_items: cart.items.map(item => {
