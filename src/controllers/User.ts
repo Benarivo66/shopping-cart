@@ -23,7 +23,7 @@ class UserController {
         }
         user = await User.create(userFields);
         const token = jwt.sign({ email, id: user._id }, tokenKey, {
-            expiresIn: '1h'
+            expiresIn: '3h'
         });
 
         user.token = token;
