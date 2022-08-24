@@ -11,7 +11,8 @@ class ProductService {
         return products;
     }
     async getById(id: productByIdType): Promise<IProduct> {
-        const product = await Product.findById({deleted: false, ...id});
+        // const product = await Product.findById({deleted: false, ...id});
+        const product = await Product.findById(id._id);
         return product;
     }
     async update(id:string, {...data}: Partial<IProduct>): Promise<IProduct> {

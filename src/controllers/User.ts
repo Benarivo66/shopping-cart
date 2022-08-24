@@ -1,4 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
+import {RequestUser} from 'Request';
 import jwt from 'jsonwebtoken';
 import { IUser } from 'User';
 import User  from '../services/User';
@@ -36,10 +37,12 @@ class UserController {
         }
     }
 
-    static async login(req:Request, res: Response, next: NextFunction) {
+    static async login(req:RequestUser, res: Response, next: NextFunction) {
         const {email, password} = req.body;
         try {
             const user: IUser = await User.getByEmail(email);
+            req.user = user._id;
+            console.log({reqOwnerId:req.user, user_id: user._id});
 
             if(!user) {
                 return res
@@ -54,7 +57,7 @@ class UserController {
             }
 
             const token = jwt.sign({ email, id: user._id }, tokenKey, {
-                expiresIn: '1h'
+                expiresIn: '3h'
             });
     
             user.token = token;

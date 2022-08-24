@@ -1,6 +1,6 @@
-import express, {Application, Router} from 'express';
+import express, {Application, Router, Request, Response, NextFunction} from 'express';
 import cors from 'cors';
-import http from 'http';
+import http, { request } from 'http';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import swaggerUi from 'swagger-ui-express';
@@ -16,7 +16,14 @@ export default class ExpressServer {
     constructor() {
         app.use(cors());
         app.use(logger('dev'));
-        app.use(express.json());
+        //app.use(express.json());
+        app.use((req:Request, res:Response, next:NextFunction) => {
+            if (req.originalUrl === '/payment/webhook') {
+              next(); 
+            } else {
+              express.json()(req, res, next ); 
+            }
+          })
         app.use(express.urlencoded({extended: false}));
         app.use(cookieParser());
         app.use("/files", express.static("files"));

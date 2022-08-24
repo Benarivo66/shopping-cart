@@ -12,6 +12,6 @@ export default function routes(app:Application): void {
     app.use('/cart', cartRoutes);
     app.use('/payment', paymentRoutes);
     app.use('/', function(req:Request, res:Response){
-        res.send('welcome to shopping cart web application')
+        res.send('welcome to shopping cart web application. Browse.')
     })
 }

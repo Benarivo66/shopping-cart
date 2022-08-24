@@ -7,6 +7,10 @@ const itemSchema: Schema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Product',
         },
+        ownerId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
         quantity: {
             type: Number,
             required: true,

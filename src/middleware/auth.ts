@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
 import { tokenKey } from '../../config/env/index';
-import { RequestUser } from 'Request';
+import { RequestTest } from 'Request';
 
 
-export default function (req: RequestUser, res: Response, next: NextFunction){
+export default function (req: RequestTest, res: Response, next: NextFunction){
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     if(!token) return res
                     .status(403)

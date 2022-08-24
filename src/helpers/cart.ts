@@ -1,5 +1,7 @@
 import { ICart } from 'Cart';
+import { FilterQuery } from 'mongoose';
 import { IProduct } from 'Product';
+import CartService from '../services/cart';
 
 class CartHelpers {
     async removeItemFromCart(indexFound:number, quantity: number, cart:ICart){
@@ -16,9 +18,10 @@ class CartHelpers {
         cart.items[indexFound].price = productDetails.price;
         cart.subTotal = cart.items.map(item => item.total).reduce((acc, next) => acc + next);
     }
-    async addItemsToItemsArr(productId: any,  quantity: number, cart:ICart, productDetails: IProduct){
+    async addItemsToItemsArr(productId: any, ownerId: any,  quantity: number, cart:ICart, productDetails: IProduct){
         cart.items.push({
             productId: productId,
+            ownerId: ownerId,
             quantity: quantity,
             price: productDetails.price,
             name: productDetails.name,
@@ -26,10 +29,11 @@ class CartHelpers {
         })
         cart.subTotal = cart.items.map(item => item.total).reduce((acc, next) => acc + next);
     }
-    async createNewCartAndAddItem(productId: any, quantity: number, productDetails: IProduct) {
+    async createNewCartAndAddItem(productId: any, ownerId: any, quantity: number, productDetails: IProduct) {
         const cartData = {
             items: [{
                 productId,
+                ownerId,
                 quantity: quantity,
                 total: +productDetails.price * quantity,
                 price: productDetails.price,
@@ -38,6 +42,13 @@ class CartHelpers {
             subTotal: +productDetails.price * quantity
         }
         return cartData;
+    }
+    async resetCart(ownerId:FilterQuery<ICart>){
+        const cart = await CartService.cart(ownerId);
+        cart.items = [];
+        cart.subTotal = 0;
+
+        return await CartService.create(cart);
     }
 }
 

@@ -2,6 +2,7 @@ import { Document } from 'mongoose';
 
 type item = {
     productId: any,
+    ownerId: any,
     quantity: number,
     price: number,
     total: number,
