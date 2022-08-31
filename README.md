@@ -15,9 +15,6 @@ Swagger Documentation
 
 /*
 Does /payment work on the deployed app?
-Create issue - Each user should have it's own cart
 Why it doesn't redirect to the real success.html or cancel.html
-Remove any from RequestUser types
 When to adjust products - when added to cart? Or when paid for?
-Find suitable query to get cart
 **/

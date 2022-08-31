@@ -42,7 +42,6 @@ class UserController {
         try {
             const user: IUser = await User.getByEmail(email);
             req.user = user._id;
-            console.log({reqOwnerId:req.user, user_id: user._id});
 
             if(!user) {
                 return res

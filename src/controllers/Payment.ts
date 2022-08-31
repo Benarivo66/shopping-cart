@@ -41,7 +41,7 @@ class PaymentController {
             next(error);
         } 
     }
-    static async webhook (req: RequestUser, res: Response, next: NextFunction){
+    static async webhook (req: RequestUser, res: Response){
         const sig = req.headers['stripe-signature'];
         const endpointSecret = process.env.ENDPOINT_SECRET;
         let event;
@@ -51,7 +51,6 @@ class PaymentController {
             if(event.type === 'checkout.session.completed'){
                 await CartHelpers.resetCart(req.user.id);
             } else console.log(`unhandled event type ${event.type}`);
-            //res.send(200);
             return res.status(200).json({ message: 'completed checkout session' });
         } catch (error) {
             res.status(400).send(`Webhook Error: ${error.message}`);
