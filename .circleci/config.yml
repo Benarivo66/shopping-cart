@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:latest
     steps: 
       - checkout
-      - echo "testing the microphone"
+      - run: echo "testing the microphone"
   test:
     docker:
       image: circleci/node:latest
