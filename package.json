@@ -7,7 +7,7 @@
     "start": "node dist/src/server.js",
     "build": "tsc",
     "server": "concurrently \"npm run watch-tsc\" \"npm run watch-start\"",
-    "test": "mocha --recursive --exit",
+    "test": "jest",
     "watch-start": "nodemon dist/src/server.js",
     "watch-tsc": "tsc -w"
   },
